@@ -1,0 +1,44 @@
+header{
+    height: 8vh;
+    box-shadow: 0 0 3px 1px lightgrey;
+    background: white;
+    padding: 0 20%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header nav{
+    justify-content: space-around;
+    align-items: center;
+}
+
+header nav a{
+    margin: 0 1vmax;
+}
+
+#logo #first{
+    color: #333;
+}
+#logo #second{
+    color: var(--secondary-color);
+}
+
+.left-content-container{
+    flex: 10%;
+    margin: 1vmin;
+    padding: 1vmax;
+}
+
+.main-content-container{
+    flex: 50%;
+    background: white;
+    margin: 1vmin;
+    padding: 1vmax;
+}
+
+.right-content-container{
+    flex: 10%;
+    margin: 1vmin;
+    
+
+}

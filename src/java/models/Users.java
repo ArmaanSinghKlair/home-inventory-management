@@ -34,7 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByFirstName", query = "SELECT u FROM Users u WHERE u.firstName = :firstName")
     , @NamedQuery(name = "Users.findByLastName", query = "SELECT u FROM Users u WHERE u.lastName = :lastName")
     , @NamedQuery(name = "Users.findByActive", query = "SELECT u FROM Users u WHERE u.active = :active")
-    , @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")})
+    , @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")
+    , @NamedQuery(name = "Users.findByResetpasswordUUID", query = "SELECT u FROM Users u WHERE u.resetpasswordUUID = :resetpasswordUUID")
+    , @NamedQuery(name = "Users.findByActivateaccountUUID", query = "SELECT u FROM Users u WHERE u.activateaccountUUID = :activateaccountUUID")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -60,6 +62,10 @@ public class Users implements Serializable {
     @Basic(optional = false)
     @Column(name = "IsAdmin")
     private boolean isAdmin;
+    @Column(name = "resetpasswordUUID")
+    private String resetpasswordUUID;
+    @Column(name = "activateaccountUUID")
+    private String activateaccountUUID;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Items> itemsList;
 
@@ -134,6 +140,22 @@ public class Users implements Serializable {
 
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public String getResetpasswordUUID() {
+        return resetpasswordUUID;
+    }
+
+    public void setResetpasswordUUID(String resetpasswordUUID) {
+        this.resetpasswordUUID = resetpasswordUUID;
+    }
+
+    public String getActivateaccountUUID() {
+        return activateaccountUUID;
+    }
+
+    public void setActivateaccountUUID(String activateaccountUUID) {
+        this.activateaccountUUID = activateaccountUUID;
     }
 
     @XmlTransient

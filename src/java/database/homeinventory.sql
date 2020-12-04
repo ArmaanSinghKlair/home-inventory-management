@@ -32,6 +32,9 @@ CREATE TABLE IF NOT EXISTS `homeinventorydb`.`users` (
   `LastName` VARCHAR(50) NOT NULL,
   `Active` BIT NOT NULL,
   `IsAdmin` BIT NOT NULL,
+  `resetpasswordUUID` VARCHAR(50),
+  `activateaccountUUID` VARCHAR(50),
+
   PRIMARY KEY (`Username`))
 ENGINE = InnoDB;
 

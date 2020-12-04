@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap');:root{
+    --secondary-color: #7289DA;
+    --primary-gray: #F2F3F5;
+    --secondary-gray: #E3E5E8;
+    --primary-green: #51BA8A;
+    --secondary-green: #D9F0E6;
+    --primary-font: 'Roboto', sans-serif;
+    --heading-font: 'Work Sans', sans-serif;
+}
+
+*, *::before, *::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body{
+    height: 100%;
+    font-size: 62.5%;
+}
+.flex{
+    display: flex;
+}
+
+.flex-row{
+    flex-flow: row wrap;
+}
+.flex-column{
+    flex-flow: column wrap;
+}
+
+p, a, div, ul, li, section, article, input, button{
+    font-family: var(--primary-font);
+    font-size: 1.5rem;
+    color: #333;
+
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: var(--heading-font);
+    font-size: 4rem;
+}
+a{
+    text-decoration: none;
+    color: var(--secondary-color);
+    display: inline-block;
+}
+
+form{
+    width: 50%;
+}
+
+form input, select{
+    padding: 1vmin 1vmax;
+    display: block;
+    margin: 1vmin 0;
+    width: 100%;
+}
+
+input[type=submit]{
+    background-color: var(--secondary-color);
+    border: none;
+    color: white;
+    font-size: 2rem;
+}
+.overlay{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    
+}
+
+.material-icons{
+    padding: 1vmin;
+    border-radius: 50%;
+    transition: all .3s;
+}
+.material-icons:hover{
+    background: var(--secondary-gray);
+}
+
+.logout{
+    background: tomato;
+    color:white;
+    padding: 1vmin 1vmax;
+    border-radius: 5px;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1vmax auto;
+    border: solid 1px lightgray;
+}
+table td,th{
+    text-align: center;
+}
+td form{
+    width: 100%;
+}
+
+td form input{
+    width: 80%;
+    margin: auto;
+    border-radius: 5px;
+}
+td, th{
+    padding: 1vmin 0;
+}
+
+th{
+    border-bottom: solid 1px lightgray;
+}
+table tr:nth-child(2n+3){
+    background: var(--primary-gray);
+)
+
