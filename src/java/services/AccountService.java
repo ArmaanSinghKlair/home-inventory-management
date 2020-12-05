@@ -8,6 +8,7 @@ package services;
 import java.util.List;
 import models.Users;
 import dataaccess.UserDB;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -17,40 +18,70 @@ import java.util.logging.Logger;
  * @author 839645
  */
 public class AccountService {
+    private UserDB udb = new UserDB();
     public String authenticateUser(String username, String password){
         if(isEmpty(username) || isEmpty(password))
             return "Error: All fields required";
-        return new UserDB().authenticateUser(username, password); 
+        try { 
+            return udb.authenticateUser(username, password);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error: "+ex.getMessage();
+        }
     }
     
     public Users getUser(String username){
-        return new UserDB().getUser(username); 
+        return udb.getUser(username); 
     }
      
     public List<Users> getAll(){
-        return new UserDB().getAll();
+        return udb.getAll();
+    }
+    public List<Users> getAllNonAdminUsers(){
+        return udb.getAllNonAdminUsers();
+    }
+    public List<Users> getAllAdminUsers(){
+        return udb.getAllAdminUsers();
     }
     
+    
     public String delete(String username){
-        return new UserDB().delete(username);
+        return udb.delete(username);
     }
     
     public String editUser(String username, String password, String email, String firstName, String lastName, String oldUsername){
         if(isEmpty(username) || isEmpty(password) || isEmpty(email) || isEmpty(firstName) || isEmpty(lastName))
             return "Error: All Fields Required";
-        return new UserDB().editUser(username, password, email, firstName, lastName, oldUsername);
+        try {
+            return udb.editUser(username, password, email, firstName, lastName, oldUsername);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error: "+ex.getMessage();
+        }
     }
     
      public String addUser(String username, String password, String email, String firstName, String lastName){
         if(isEmpty(username) || isEmpty(password) || isEmpty(email) || isEmpty(firstName) || isEmpty(lastName))
             return "Error: All Fields Required";
-        return new UserDB().addUser(username, password, email, firstName, lastName);
+        try {
+            return udb.addUser(username, password, email, firstName, lastName);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error: "+ex.getMessage();
+
+        }
     }
      
     public String addNonActiveUser(String username, String password, String email, String firstName, String lastName){
         if(isEmpty(username) || isEmpty(password) || isEmpty(email) || isEmpty(firstName) || isEmpty(lastName))
             return "Error: All Fields Required";
-        return new UserDB().addNonActiveUser(username, password, email, firstName, lastName);
+        try {
+            return udb.addNonActiveUser(username, password, email, firstName, lastName);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+            return "Error: "+ex.getMessage();
+
+        }
     }
     private boolean isEmpty(String e){
         if(e == null || e.trim().length() == 0)
@@ -62,51 +93,63 @@ public class AccountService {
     public String activateUser(String username){
         if(isEmpty(username))
             return "Error: Username invalid. Please reload and try again";
-        return new UserDB().activateUser(username);
+        return udb.activateUser(username);
     }
     
     public String deactivateUser(String username){
         if(isEmpty(username))
             return "Error: Username invalid. Please reload and try again";
-        return new UserDB().deactivateUser(username);
+        return udb.deactivateUser(username);
     }
     
     public void addActivateAccountUuid(String username, String uuid){
-        new UserDB().addActivateAccountUuid(username, uuid);
+        udb.addActivateAccountUuid(username, uuid);
     }
     
     public void deleteActivateAccountUuid(String username){
-        new UserDB().deleteActivateAccountUuid(username);
+       udb.deleteActivateAccountUuid(username);
     }
     
     public boolean checkActivationAccountUuid(String username, String uuid){
-        return new UserDB().checkActivationAccountUuid(username, uuid);
+        return udb.checkActivationAccountUuid(username, uuid);
     }
     
     public void addResetPasswordUuid(String username, String uuid){
-        new UserDB().addActivateAccountUuid(username, uuid);
+        udb.addActivateAccountUuid(username, uuid);
     }
     
     public void deleteResetPasswordUuid(String username){
-        new UserDB().deleteActivateAccountUuid(username);
+        udb.deleteActivateAccountUuid(username);
     }
     
     public boolean checkResetPasswordUuid(String username, String uuid){
-        return new UserDB().checkResetPasswordUuid(username, uuid);
+        return udb.checkResetPasswordUuid(username, uuid);
     }
     
+    public String promoteUser(String username){
+        if(isEmpty(username))
+            return "Error: Username cannot be empty";
+        else 
+            return udb.promoteUser(username);  
+    }
+    public String demoteUser(String username){
+        if(isEmpty(username))
+            return "Error: Username cannot be empty";
+        else 
+            return udb.demoteUser(username);  
+    }
     public String resetPassword(String username, String password){
         if(isEmpty(username))
             return "Error: Username cannot be empty. Please try again";
         else if(isEmpty(password))
             return "Error: Password cannot be empty";
-        return new UserDB().resetPassword(username, password);
+        return udb.resetPassword(username, password);
     }
     public String sendActivateAccountMail(String toUsername, String to, String url, String path){
         HashMap<String, String> tags = new HashMap<>();
         tags.put("username", toUsername);
         String uuid = UUID.randomUUID().toString();
-        new UserDB().addActivateAccountUuid(toUsername, uuid);
+        udb.addActivateAccountUuid(toUsername, uuid);
         tags.put("link", url+"?uuid="+uuid+"&uname="+toUsername);
         
         String template = path+"/emailTemplates/register.html";
@@ -133,7 +176,7 @@ public class AccountService {
         HashMap<String, String> tags = new HashMap<>();
         tags.put("username", toUsername);
         String uuid = UUID.randomUUID().toString();
-        new UserDB().addResetPasswordUuid(toUsername, uuid);
+        udb.addResetPasswordUuid(toUsername, uuid);
         tags.put("link", url+"?uuid="+uuid+"&uname="+toUsername);
         String template = path+"/emailTemplates/resetPassword.html";
         String subject = "Reset Password - HOME nVentory";
@@ -150,7 +193,7 @@ public class AccountService {
         HashMap<String, String> tags = new HashMap<>();
         String to = this.getUser(toUsername).getEmail();
         String uuid = UUID.randomUUID().toString();
-        new UserDB().addActivateAccountUuid(toUsername, uuid);        
+        udb.addActivateAccountUuid(toUsername, uuid);        
         String template = path+"/emailTemplates/welcome.html";
         String subject = "Welcome to HOME nVentory";
         try {

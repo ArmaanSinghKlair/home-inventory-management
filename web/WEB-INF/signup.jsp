@@ -12,11 +12,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="base-style.css"/>
-        <title>Signup</title>
+        <link rel="stylesheet" type="text/css" href="theme-style.css"/>
+        <link rel="stylesheet" type="text/css" href="module-style.css"/>
+        <title>Register Account</title>
     </head>
     <body>
-            
-            <section id="signup-users">
+            <div class='login-container flex flex-row'>
+                <div class="login-heading-container">  
+                            <div class="overlay  flex flex-column" id="login-overlay">
+                                <h1 id="logo"><span id="first">HOME</span><span id="second">nVentory</span></h1>
+                                <p>The one stop shop for all your inventory needs</p>
+                            </div>
+                </div>
+                
+                <div class="actual-login-container flex flex-column">
                 <h3>Register Account</h3>
                 
                  <form action="<c:url value='/signup'></c:url>" method='post'>
@@ -28,7 +37,7 @@
                      </label>
                      
                      <label for="password">
-                     <input type="password" name="password" id="password" placeholder ='Password' value="<c:out value='${userToEdit.password}' default=''/>" />
+                     <input type="password" name="password" id="password" placeholder ='Password'  />
                      </label>
                      
                      <label for="email">
@@ -49,7 +58,6 @@
                      
                  </form>
                 </table>
-            </section>
                      
             <c:if test="${requestScope.errMsg != null}">
                 <section class="errMsg"><c:out value='${requestScope.errMsg}'></c:out></section>
@@ -58,5 +66,8 @@
             <c:if test="${requestScope.infoMsg != null}">
             <section class="infoMsg"><c:out value='${requestScope.infoMsg}'></c:out></section>
             </c:if>
+             <p>Already have an account? <a href="<c:url value='/login'></c:url>">Login here</a></p>
+                </div>
+            </div>
     </body>
 </html>

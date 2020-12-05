@@ -38,7 +38,7 @@ p, a, div, ul, li, section, article, input, button{
 }
 
 h1, h2, h3, h4, h5, h6{
-    font-family: var(--heading-font);
+    font-family: var(--primary-font);
     font-size: 4rem;
 }
 a{
@@ -62,7 +62,7 @@ input[type=submit]{
     background-color: var(--secondary-color);
     border: none;
     color: white;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 .overlay{
     position: absolute;
@@ -75,6 +75,7 @@ input[type=submit]{
     padding: 1vmin;
     border-radius: 50%;
     transition: all .3s;
+    cursor: pointer;
 }
 .material-icons:hover{
     background: var(--secondary-gray);
@@ -87,6 +88,40 @@ input[type=submit]{
     border-radius: 5px;
 }
 
+@media only screen and (max-width:768px){
+    h1, h2, h3, h4, h5, h6{
+        font-family: var(--primary-font);
+        font-size: 4rem;
+    }
+    .left-content-container{
+        flex: 100% !important;
+        margin-bottom
+        order:2;
+    }
+
+    .main-content-container{
+        flex: 100% !important;
+        order:3;
+    }
+
+    .right-content-container{
+        flex: 100% !important;
+        order: 1;
+     }
+     .login-container{
+         flex-flow: column wrap !important;
+     }
+     
+     #open-hamburger-menu{
+         display: block !important;
+     }
+     
+     header nav:not(#hamburger-menu-nav){
+         display: none !important;
+     }
+   }
+   
+   
 table{
     width: 100%;
     border-collapse: collapse;
@@ -112,7 +147,13 @@ td, th{
 th{
     border-bottom: solid 1px lightgray;
 }
+
+.hamburger-menu{
+    color: var(--primary-color);
+}
 table tr:nth-child(2n+3){
     background: var(--primary-gray);
 )
+
+
 

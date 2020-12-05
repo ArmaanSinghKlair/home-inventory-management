@@ -21,7 +21,16 @@
     </head>
     <body>
        <div class="regularUser-container">
-            <header class="flex flex-row">
+            <header class="flex flex-row"><div class='hamburger-menu'>
+                        <nav class="flex flex-column" id="hamburger-menu-nav">
+                      <span class="material-icons" style="color:var(--secondary-color)" id="close-hamburger-menu">close</span>      
+                    <a href="<c:url value='/inventory'></c:url>">Inventory</a>
+                    <a href="<c:url value='/admin'></c:url>">Admin</a>
+                </nav>
+                    </div>
+                    <i class="material-icons" style="color:var(--secondary-color)" id="open-hamburger-menu">menu</i>
+
+                
                 <h1 id="logo"><span id="first">HOME</span><span id="second">nVentory</span></h1>
 
                 <nav class="flex flex-row">
@@ -132,5 +141,6 @@
                     </div>
              </div>
        </div>
+                           <script src="hamburger-script.js"></script>
     </body>
 </html>

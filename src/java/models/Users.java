@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByActive", query = "SELECT u FROM Users u WHERE u.active = :active")
     , @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")
     , @NamedQuery(name = "Users.findByResetpasswordUUID", query = "SELECT u FROM Users u WHERE u.resetpasswordUUID = :resetpasswordUUID")
-    , @NamedQuery(name = "Users.findByActivateaccountUUID", query = "SELECT u FROM Users u WHERE u.activateaccountUUID = :activateaccountUUID")})
+    , @NamedQuery(name = "Users.findByActivateaccountUUID", query = "SELECT u FROM Users u WHERE u.activateaccountUUID = :activateaccountUUID")
+    , @NamedQuery(name = "Users.findByPasswordSalt", query = "SELECT u FROM Users u WHERE u.passwordSalt = :passwordSalt")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,6 +67,8 @@ public class Users implements Serializable {
     private String resetpasswordUUID;
     @Column(name = "activateaccountUUID")
     private String activateaccountUUID;
+    @Column(name = "passwordSalt")
+    private String passwordSalt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Items> itemsList;
 
@@ -156,6 +159,14 @@ public class Users implements Serializable {
 
     public void setActivateaccountUUID(String activateaccountUUID) {
         this.activateaccountUUID = activateaccountUUID;
+    }
+
+    public String getPasswordSalt() {
+        return passwordSalt;
+    }
+
+    public void setPasswordSalt(String passwordSalt) {
+        this.passwordSalt = passwordSalt;
     }
 
     @XmlTransient

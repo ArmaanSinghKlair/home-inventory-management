@@ -26,7 +26,7 @@ USE `homeinventorydb` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `homeinventorydb`.`users` (
   `Username` VARCHAR(10) NOT NULL,
-  `Password` VARCHAR(20) NOT NULL,
+  `Password` VARCHAR(80) NOT NULL,
   `Email` VARCHAR(50) NOT NULL,
   `FirstName` VARCHAR(50) NOT NULL,
   `LastName` VARCHAR(50) NOT NULL,
@@ -34,6 +34,8 @@ CREATE TABLE IF NOT EXISTS `homeinventorydb`.`users` (
   `IsAdmin` BIT NOT NULL,
   `resetpasswordUUID` VARCHAR(50),
   `activateaccountUUID` VARCHAR(50),
+  `passwordSalt` VARCHAR(150),
+
 
   PRIMARY KEY (`Username`))
 ENGINE = InnoDB;

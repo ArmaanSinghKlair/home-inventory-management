@@ -4,27 +4,29 @@
  * and open the template in the editor.
  */
 package dataaccess;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import javax.persistence.*;
 import javax.persistence.EntityManagerFactory;
 import models.*;
 import utilities.DBUtil;
+import utilities.PasswordUtil;
 /**
  *
  * @author 839645
  */
 
 public class UserDB {
-    public String authenticateUser(String username, String password){
+    public String authenticateUser(String username, String password) throws NoSuchAlgorithmException{
          EntityManagerFactory emf = DBUtil.getEmFactory();
         EntityManager em = emf.createEntityManager();
         
         try{
             Users user = em.find(Users.class, username);
-            
+            String salt = user.getPasswordSalt() != null ? user.getPasswordSalt() : "";
             if(user == null){
                 return "Error: Username is invalid";
-            } else if(!user.getPassword().trim().equals(password)){
+            } else if(!user.getPassword().trim().equals(PasswordUtil.hashPassword(password+salt))){
                 return "Error: Password is invalid";
 
             } else if(!user.getActive()){
@@ -68,6 +70,34 @@ public class UserDB {
         }
     }
     
+    public List<Users> getAllNonAdminUsers(){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try{
+            TypedQuery<Users> q = em.createQuery("select u.username from Users u where u.isAdmin = false", Users.class);
+            List<Users> users = q.getResultList();
+            if(users == null || users.isEmpty())
+                users = null;
+            return users;
+        } finally{
+            em.close();
+        }
+    }
+    
+    public List<Users> getAllAdminUsers(){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        
+        try{
+            TypedQuery<Users> q = em.createQuery("select u.username from Users u where u.isAdmin = true", Users.class);
+            List<Users> users = q.getResultList();
+            if(users == null || users.isEmpty())
+                users = null;
+            return users;
+        } finally{
+            em.close();
+        }
+    }
+    
     public String delete(String username){
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
@@ -92,7 +122,55 @@ public class UserDB {
 
     }
     
-    public String editUser(String username, String password, String email, String firstName, String lastName, String oldUsername){
+    public String promoteUser(String username){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
+        try{
+           Users user = em.find(Users.class, username);
+           if(user.getIsAdmin())
+               return "Error: Already an admin";
+           
+           trans.begin();
+           user.setIsAdmin(true);
+           trans.commit();
+           
+           return "User promoted successfully";
+        } catch(Exception ex){
+            if(trans.isActive())
+                trans.rollback();
+            return "Error: Unknown error occured. Please try again later";
+        } finally{
+            em.close();
+        }
+
+    }
+    
+    public String demoteUser(String username){
+        EntityManager em = DBUtil.getEmFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        
+        try{
+           Users user = em.find(Users.class, username);
+           if(!user.getIsAdmin())
+               return "Error: Already aa regular user";
+           
+           trans.begin();
+           user.setIsAdmin(false);
+           trans.commit();
+           
+           return "User demtoed successfully";
+        } catch(Exception ex){
+            if(trans.isActive())
+                trans.rollback();
+            return "Error: Unknown error occured. Please try again later";
+        } finally{
+            em.close();
+        }
+
+    }
+    
+    public String editUser(String username, String password, String email, String firstName, String lastName, String oldUsername) throws NoSuchAlgorithmException{
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         if((!username.trim().equals(oldUsername)) && usernameAlreadyExists(username)){
@@ -105,10 +183,14 @@ public class UserDB {
             return "Error: First name and last names must be less than 50 characters";
         try{
             Users user = em.find(Users.class, oldUsername);
-            
+            String salt = user.getPasswordSalt() != null ? user.getPasswordSalt() : "";
+            if(salt.trim().equals(""))
+                salt = PasswordUtil.getSalt();
             if(!username.equals(oldUsername)){
-            List<Items> userItems = user.getItemsList();          
-            Users newUser = new Users(username, password, email, firstName, lastName, user.getActive(), user.getIsAdmin());
+            List<Items> userItems = user.getItemsList(); 
+            Users newUser = new Users(username, "", email, firstName, lastName, user.getActive(), user.getIsAdmin());
+            newUser.setPasswordSalt(salt);
+            newUser.setPassword(PasswordUtil.hashPassword(password+salt));
             trans.begin();     
             user.setItemsList(null); 
             for(Items item: userItems)
@@ -121,7 +203,8 @@ public class UserDB {
                 trans.begin();
                 user.setEmail(email);
                 user.setFirstName(firstName);
-                user.setPassword(password);
+                user.setPassword(PasswordUtil.hashPassword(password+salt));
+                user.setPasswordSalt(salt);
                 user.setLastName(lastName);
                 trans.commit();
             }
@@ -131,7 +214,7 @@ public class UserDB {
         }
     }
     
-    public String addUser(String username, String password, String email, String firstName, String lastName){
+    public String addUser(String username, String password, String email, String firstName, String lastName) throws NoSuchAlgorithmException{
          EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
@@ -144,7 +227,9 @@ public class UserDB {
         else if(firstName.length() > 50 || lastName.length() > 50)
             return "Error: First name and last names must be less than 50 characters";
         try{       
-            Users newUser = new Users(username, password, email, firstName, lastName, true, false);
+            Users newUser = new Users(username, null, email, firstName, lastName, true, false);
+            newUser.setPasswordSalt(PasswordUtil.getSalt());
+            newUser.setPassword(PasswordUtil.hashPassword(password+newUser.getPasswordSalt()));
             trans.begin();
             em.persist(newUser);
             trans.commit();
@@ -154,7 +239,7 @@ public class UserDB {
         }
     }
     
-    public String addNonActiveUser(String username, String password, String email, String firstName, String lastName){
+    public String addNonActiveUser(String username, String password, String email, String firstName, String lastName) throws NoSuchAlgorithmException{
          EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         
@@ -167,7 +252,9 @@ public class UserDB {
         else if(firstName.length() > 50 || lastName.length() > 50)
             return "Error: First name and last names must be less than 50 characters";
         try{       
-            Users newUser = new Users(username, password, email, firstName, lastName, false, false);
+            Users newUser = new Users(username, null, email, firstName, lastName, false, false);
+            newUser.setPasswordSalt(PasswordUtil.getSalt());
+            newUser.setPassword(PasswordUtil.hashPassword(password+newUser.getPasswordSalt()));
             trans.begin();
             em.persist(newUser);
             trans.commit();

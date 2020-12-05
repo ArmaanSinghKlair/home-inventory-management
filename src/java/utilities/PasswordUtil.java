@@ -6,6 +6,9 @@
 package utilities;
 import java.security.MessageDigest; 
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.Random;
 public class PasswordUtil {
 
 /* This code uses SHA-256. If this algorithm isn't available to you, you can try a weaker level of encryption such as SHA-128.
@@ -23,6 +26,19 @@ public class PasswordUtil {
             sb.append(Integer.toHexString(v));
         }
             return sb.toString();
+    }
+    
+    public static String getSalt() {
+        Random r = new SecureRandom();
+        byte[] saltBytes = new byte[32];
+        r.nextBytes(saltBytes);
+        return Base64.getEncoder().encodeToString(saltBytes);
+    }
+    
+    public static String hashAndSaltPassword(String password)
+            throws NoSuchAlgorithmException {
+        String salt = getSalt();
+        return hashPassword(password + salt);
     }
 }
 

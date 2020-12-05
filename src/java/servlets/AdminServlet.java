@@ -33,6 +33,8 @@ public class AdminServlet extends HttpServlet {
         HttpSession sess = request.getSession();
         sess.setAttribute("users", ac.getAll());
         sess.setAttribute("categories", cs.getAllCategories());
+        sess.setAttribute("nonAdminUsers", ac.getAllNonAdminUsers());
+        sess.setAttribute("adminUsers", ac.getAllAdminUsers());
         this.getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
@@ -163,9 +165,33 @@ public class AdminServlet extends HttpServlet {
                  
                 }
                 break;
+                
+            case "promoteUser":
+                String userToPromote = request.getParameter("username");
+                msg = service.promoteUser(userToPromote);
+                if(msg.toLowerCase().startsWith("error")){
+                    request.setAttribute("errMsgPromote", msg.substring(7));
+                } else{
+                    request.setAttribute("infoMsgPromote", msg);
+                }
+                
+                break;
+                
+                case "demoteUser":
+                String userToDemote = request.getParameter("username");
+                msg = service.demoteUser(userToDemote);
+                if(msg.toLowerCase().startsWith("error")){
+                    request.setAttribute("errMsgPromote", msg.substring(7));
+                } else{
+                    request.setAttribute("infoMsgPromote", msg);
+                }
+                
+                break;
         }
         curSess.setAttribute("users", service.getAll());
         curSess.setAttribute("categories", cs.getAllCategories());
+        curSess.setAttribute("nonAdminUsers", service.getAllNonAdminUsers());
+        curSess.setAttribute("adminUsers", service.getAllAdminUsers());
         this.getServletContext().getRequestDispatcher(url).forward(request, response);
         
     }
