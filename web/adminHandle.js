@@ -12,7 +12,7 @@ ctas.push(document.getElementById("categories-cta"));
 ctas.push(document.getElementById("promote-demote-cta"));
 
 
-window.onload = function(){
+//window.onload = function(){
     sections[2].style.display="none";
     sections[3].style.display="none";
     sections[4].style.display="none";
@@ -36,4 +36,4 @@ ctas[2].addEventListener("click",()=>{
                 e.style.display = "none";
         });
     })
-}
+//}

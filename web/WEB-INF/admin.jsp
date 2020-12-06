@@ -288,14 +288,35 @@
                     </div>
              </div>
         </div>  
-                           <script src='adminHandle.js' defer></script>
-                           <script src="hamburger-script.js" async></script>
-                            <c:if test="${editModeCategory == true}">
-                                <script async>window.addEventListener("load",()=>document.getElementById("categories-cta").click())</script>
-                            </c:if>
-                           <c:if test="${infoMsgPromote != null || errMsgPromote != null}">
-                            <script async>window.addEventListener("load",()=>document.getElementById("promote-demote-cta").click())</script>
-                           </c:if>
+                           <script  type="text/javascript">
+                                function downloadJSAtOnload() {
+                                let scripts = ['adminHandle.js','hamburger-script.js'];
+                                <c:if test="${editModeCategory == true}">
+                                scripts.push("editModeScript.js");
+                                </c:if>
+                                <c:if test="${infoMsgPromote != null || errMsgPromote != null}">
+                                scripts.push("promoteScript.js");
+                                </c:if>
+                                <c:if test="${infoMsgCategory != null || errMsgCategory != null}">
+                                scripts.push("categoryScript.js");
+                                </c:if>
+                                let element;
+                                scripts.forEach((e)=>{
+                                    element = document.createElement("script");
+                                    element.src = e;
+                                    element.async = true;
+                                    document.body.appendChild(element);
+                                });
+                                
+                                }
+                                if (window.addEventListener)
+                                window.addEventListener("load", downloadJSAtOnload, false);
+                                else if (window.attachEvent)
+                                window.attachEvent("onload", downloadJSAtOnload);
+                                else window.onload = downloadJSAtOnload;
+                             </script>
+                           
+                       
                             
                             <c:if test="${infoMsgCategory != null || errMsgCategory != null}">
                             <script async>window.addEventListener("load",()=>document.getElementById("categories-cta").click())</script>
