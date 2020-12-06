@@ -9,14 +9,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="base-style.css"/>
+        <link rel="stylesheet" type="text/css" href="module-style.css"/>
+        <link rel="stylesheet" type="text/css" href="theme-style.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Oops! Java threw an exception</h1>
-        <div class='container'>
-            <h3>Details</h3>
-            <p><b>Type: </b> ${pageContext.exception["class"]}</p>
-            <p><b>Message: </b> ${pageContext.exception.message}</p>
+        <div class='error-container'> 
+            <div class="content-container">
+                <h1>Oops! Java threw an exception</h1>
+                <p><b>Type: </b> ${pageContext.exception["class"]}</p>
+                <p><b>Message: </b> ${pageContext.exception.message}</p>
+            </div>
         </div>
     </body>
 </html>

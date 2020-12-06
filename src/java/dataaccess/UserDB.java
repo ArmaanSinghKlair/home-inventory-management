@@ -159,7 +159,7 @@ public class UserDB {
            user.setIsAdmin(false);
            trans.commit();
            
-           return "User demtoed successfully";
+           return "User demoted successfully";
         } catch(Exception ex){
             if(trans.isActive())
                 trans.rollback();
@@ -405,13 +405,13 @@ public class UserDB {
         }
     }
     
-    public String resetPassword(String username, String password){
+    public String resetPassword(String username, String password) throws NoSuchAlgorithmException{
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try{
             Users u = em.find(Users.class, username);
             trans.begin();
-            u.setPassword(password);
+            u.setPassword(PasswordUtil.hashPassword(password+u.getPasswordSalt()));
             trans.commit();
             return "All good";
         } finally{

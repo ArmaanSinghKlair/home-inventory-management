@@ -171,6 +171,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Category Name</th>
+                        <th>Edit</th>
                     </tr>
                     <c:forEach var="category" items="${categories}">
                         <tr>
@@ -191,7 +192,7 @@
             
             <section id="add-categories">
                 <h3>${editModeCategory ? "Edit Category" : "Add Category"}</h3>
-                
+                   
                  <form action="<c:url value='/admin'></c:url>" method='post'>
                      <c:if test="${editModeCategory == false || editModeCategory == null}">
                       <input type="hidden" name="action" value="addCategory"/>    
@@ -209,10 +210,12 @@
                  </form>
                 </table>
                 <c:if test="${errMsgCategory != null}">
+            <script async>window.addEventListener("load",()=>document.getElementById("categories-cta").click())</script>
                 <section class="errMsg"><c:out value='${errMsgCategory}'></c:out></section>
              </c:if>
                 
             <c:if test="${infoMsgCategory != null}">
+            <script async>window.addEventListener("load",()=>document.getElementById("categories-cta").click())</script>
             <section class="infoMsg"><c:out value='${infoMsgCategory}'></c:out></section>
             </c:if>
             </section> 
@@ -262,10 +265,12 @@
                 
             </section>
                  <c:if test="${errMsgPromote != null}">
+            <script async>window.addEventListener("load",()=>document.getElementById("promote-demote-cta").click())</script>
                 <section class="errMsg"><c:out value='${errMsgPromote}'></c:out></section>
              </c:if>
                 
             <c:if test="${infoMsgPromote != null}">
+            <script async>window.addEventListener("load",()=>document.getElementById("promote-demote-cta").click())</script>
             <section class="infoMsg"><c:out value='${infoMsgPromote}'></c:out></section>
             </c:if>
               </div>
@@ -282,8 +287,19 @@
                        </section>
                     </div>
              </div>
-        </div>
+        </div>  
                            <script src='adminHandle.js' defer></script>
-                           <script src="hamburger-script.js" ></script>
+                           <script src="hamburger-script.js" defer></script>
+                            <c:if test="${editModeCategory == true}">
+                                <script async>window.addEventListener("load",()=>document.getElementById("categories-cta").click())</script>
+                            </c:if>
+                           <c:if test="${infoMsgPromote != null || errMsgPromote != null}">
+                            <script async>window.addEventListener("load",()=>document.getElementById("promote-demote-cta").click())</script>
+                           </c:if>
+                            
+                            <c:if test="${infoMsgCategory != null || errMsgCategory != null}">
+                            <script async>window.addEventListener("load",()=>document.getElementById("categories-cta").click())</script>
+                           </c:if>
+
     </body>   
 </html>

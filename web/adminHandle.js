@@ -13,7 +13,6 @@ ctas.push(document.getElementById("promote-demote-cta"));
 
 
 window.onload = function(){
-    console.log(sections[2]+"HELLO");
     sections[2].style.display="none";
     sections[3].style.display="none";
     sections[4].style.display="none";

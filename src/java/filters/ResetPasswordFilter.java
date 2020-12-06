@@ -43,6 +43,7 @@ public class ResetPasswordFilter implements Filter {
                 if(!ac.checkResetPasswordUuid(username, uuid)){
                     httpRequest.setAttribute("errMsg", "Invalid link for reset. Please follow instructions in your email to reset");
                 } else{
+                    System.out.println("REACHED HERE");
                     ac.deleteResetPasswordUuid(username);
                     httpRequest.setAttribute("reset", true);
                     sess.setAttribute("usernamePasswordReset", username);

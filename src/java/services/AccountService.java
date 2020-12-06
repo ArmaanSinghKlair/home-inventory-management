@@ -115,11 +115,11 @@ public class AccountService {
     }
     
     public void addResetPasswordUuid(String username, String uuid){
-        udb.addActivateAccountUuid(username, uuid);
+        udb.addResetPasswordUuid(username, uuid);
     }
     
     public void deleteResetPasswordUuid(String username){
-        udb.deleteActivateAccountUuid(username);
+        udb.deleteResetPasswordUuid(username);  
     }
     
     public boolean checkResetPasswordUuid(String username, String uuid){
@@ -143,7 +143,12 @@ public class AccountService {
             return "Error: Username cannot be empty. Please try again";
         else if(isEmpty(password))
             return "Error: Password cannot be empty";
-        return udb.resetPassword(username, password);
+        try {
+            return udb.resetPassword(username, password);
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "Error: Unknown error occured";
     }
     public String sendActivateAccountMail(String toUsername, String to, String url, String path){
         HashMap<String, String> tags = new HashMap<>();

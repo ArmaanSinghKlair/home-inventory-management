@@ -40,3 +40,24 @@ header nav a{
     flex: 10%;
     margin: 1vmin;
 }
+
+.error-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+}
+
+.error-container  button{
+    padding: 1vmin 3vmax;   
+    background: var(--secondary-color);
+    color: white;
+    border-radius: 5px;
+}
+
+.error-container .content-container{
+    border: solid 1px var(--secondary-color);
+    padding: 1vmax 2vmax;
+}

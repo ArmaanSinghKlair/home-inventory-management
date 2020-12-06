@@ -105,7 +105,7 @@
                       
                  
         </div>
-                                                      <script src="hamburger-script.js"></script>
+                                                      <script src="hamburger-script.js" defer></script>
 
     </body>
 </html>
