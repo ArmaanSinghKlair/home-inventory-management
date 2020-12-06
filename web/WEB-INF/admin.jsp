@@ -289,7 +289,7 @@
              </div>
         </div>  
                            <script src='adminHandle.js' defer></script>
-                           <script src="hamburger-script.js" defer></script>
+                           <script src="hamburger-script.js" async></script>
                             <c:if test="${editModeCategory == true}">
                                 <script async>window.addEventListener("load",()=>document.getElementById("categories-cta").click())</script>
                             </c:if>
