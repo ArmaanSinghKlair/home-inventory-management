@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.Items;
+import services.AccountService;
 import services.InventoryService;
 
 /**
@@ -29,6 +30,7 @@ public class InventoryServlet extends HttpServlet {
         String username = (sess.getAttribute("admin") != null) ? (String) sess.getAttribute("admin") :(String) sess.getAttribute("regularUser");
         sess.setAttribute("items", new InventoryService().getAllItems(username));
         sess.setAttribute("categories", new InventoryService().getCategories());
+        request.setAttribute("profilePic", new AccountService().getProfilePic(username));
         this.getServletContext().getRequestDispatcher("/WEB-INF/regularUser.jsp").forward(request, response);
     }
 

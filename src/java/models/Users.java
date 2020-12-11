@@ -37,7 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Users.findByIsAdmin", query = "SELECT u FROM Users u WHERE u.isAdmin = :isAdmin")
     , @NamedQuery(name = "Users.findByResetpasswordUUID", query = "SELECT u FROM Users u WHERE u.resetpasswordUUID = :resetpasswordUUID")
     , @NamedQuery(name = "Users.findByActivateaccountUUID", query = "SELECT u FROM Users u WHERE u.activateaccountUUID = :activateaccountUUID")
-    , @NamedQuery(name = "Users.findByPasswordSalt", query = "SELECT u FROM Users u WHERE u.passwordSalt = :passwordSalt")})
+    , @NamedQuery(name = "Users.findByPasswordSalt", query = "SELECT u FROM Users u WHERE u.passwordSalt = :passwordSalt")
+    , @NamedQuery(name = "Users.findByBase64Image", query = "SELECT u FROM Users u WHERE u.base64Image = :base64Image")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,6 +70,8 @@ public class Users implements Serializable {
     private String activateaccountUUID;
     @Column(name = "passwordSalt")
     private String passwordSalt;
+    @Column(name = "base64Image")
+    private String base64Image;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private List<Items> itemsList;
 
@@ -167,6 +170,14 @@ public class Users implements Serializable {
 
     public void setPasswordSalt(String passwordSalt) {
         this.passwordSalt = passwordSalt;
+    }
+
+    public String getBase64Image() {
+        return base64Image;
+    }
+
+    public void setBase64Image(String base64Image) {
+        this.base64Image = base64Image;
     }
 
     @XmlTransient

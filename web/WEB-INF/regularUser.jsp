@@ -130,8 +130,10 @@
 
                    <div class="regularUser-right-content-container right-content-container">                
                        <section class="user-info">
-                           <h3><c:out value="${sessionScope.regularUser != null ? sessionScope.regularUser : sessionScope.admin}" /></h3>
-                           
+                           <div class="profile-container flex flex-row">
+                               <img src="<c:out value="${profilePic}"/>" alt="Profile Picture"/>
+                                <h3><c:out value="${sessionScope.regularUser != null ? sessionScope.regularUser : sessionScope.admin}" /></h3>
+                            </div>
                            <div class='user-info-cta flex flex-row'>
                             <a href="<c:url value='/edit'></c:url>"><abbr title='Edit Account'><i class="material-icons">settings</i></abbr></a>
                             <a href="<c:url value='/login?logout'></c:url>" class="logout">Logout</a>   

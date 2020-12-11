@@ -181,3 +181,18 @@
 #open-hamburger-menu{
     display: none;
 }
+
+.profile-container{
+    align-items: center;
+}
+.profile-container img{
+    border-radius: 50%;
+}
+
+.profile-container >* {
+    margin: 0 1vmin 0 0;
+}
+
+.user-info >* {
+    margin: 1vmax 0;
+}

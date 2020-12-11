@@ -64,6 +64,19 @@ input[type=submit]{
     color: white;
     font-size: 1.5rem;
 }
+
+input[type=file]{
+    display: none;
+}
+
+label[for=profile]{
+    align-items: center;
+    border: solid 1px lightgray;
+    cursor: pointer;
+}
+label[for=profile]:hover{
+    background: lightgray;
+}
 .overlay{
     position: absolute;
     height: 100%;

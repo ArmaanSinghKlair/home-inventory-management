@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `homeinventorydb`.`users` (
   `resetpasswordUUID` VARCHAR(50),
   `activateaccountUUID` VARCHAR(50),
   `passwordSalt` VARCHAR(150),
-
+  `base64Image` VARCHAR(8000),
 
   PRIMARY KEY (`Username`))
 ENGINE = InnoDB;
@@ -91,10 +91,10 @@ INSERT INTO `categories` (`CategoryName`) VALUES ('utility room');
 INSERT INTO `categories` (`CategoryName`) VALUES ('storage');
 INSERT INTO `categories` (`CategoryName`) VALUES ('other');
 
-INSERT INTO `users` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Active`,`IsAdmin`) VALUES ('admin','password','cprg352+admin@gmail.com','Admin','Admin',1,1);
-INSERT INTO `users` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Active`,`IsAdmin`) VALUES ('admin2','password','cprg352+admin2@gmail.com','Admin2','Admin2',0,1);
-INSERT INTO `users` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Active`,`IsAdmin`) VALUES ('anne','password','cprg352+anne@gmail.com','Anne','Annerson',1,0);
-INSERT INTO `users` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Active`,`IsAdmin`) VALUES ('barb','password','cprg352+barb@gmail.com','Barb','Barber',0,0);
+INSERT INTO `users` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Active`,`IsAdmin`,`resetpasswordUUID`,`activateaccountUUID`,`passwordSalt`) VALUES ('admin','9539662b295b2588cd03e7612c04d350631a1246cbc3c6e41dfbde49aa42cb85','cprg352+admin@gmail.com','Admin','Admin',1,1,NULL,NULL,"Qw3bxot7gNJzaqomtAJ21GPYHWbCR46ndGlslMuHyt0=");
+INSERT INTO `users` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Active`,`IsAdmin`,`resetpasswordUUID`,`activateaccountUUID`,`passwordSalt`) VALUES ('admin2','3be1c44000cb7ae5e5c2ee535879cfad55c706a4ac0e4b777eb04091a6438f49','cprg352+admin2@gmail.com','Admin2','Admin2',0,1,NULL,NULL,"UIwrMslybWErXJ7BmqKrKRYNA4oOlmvx3sHMpnEoVXA==");
+INSERT INTO `users` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Active`,`IsAdmin`,`resetpasswordUUID`,`activateaccountUUID`,`passwordSalt`) VALUES ('anne','52cf1be56b412b3918ed77eb087b07ac897c853e7e0b55a7089265fd6d486971','cprg352+anne@gmail.com','Anne','Annerson',1,0,NULL,NULL,"ZyyrxQIxisK4Icq7LXP4YKDaksfYwhwHS9UE/aD4wrU==");
+INSERT INTO `users` (`Username`,`Password`,`Email`,`FirstName`,`LastName`,`Active`,`IsAdmin`,`resetpasswordUUID`,`activateaccountUUID`,`passwordSalt`) VALUES ('barb','26dfafe25d932b1d96186ad1cc7cffacd9bfc94120e7a6ee1dca5d86c3e00486','cprg352+barb@gmail.com','Barb','Barber',0,0,NULL,NULL,"NBhynqzJPA19N7wVmIHrp4vSTA8ba6eapjQUIggw/v0==");
 
 INSERT INTO `items` (`Category`,`ItemName`,`Price`,`Owner`) VALUES (1,'blender',29.99,'anne');
 INSERT INTO `items` (`Category`,`ItemName`,`Price`,`Owner`) VALUES (1,'toaster',19.99,'anne');

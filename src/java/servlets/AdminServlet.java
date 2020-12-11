@@ -35,6 +35,8 @@ public class AdminServlet extends HttpServlet {
         sess.setAttribute("categories", cs.getAllCategories());
         sess.setAttribute("nonAdminUsers", ac.getAllNonAdminUsers());
         sess.setAttribute("adminUsers", ac.getAllAdminUsers());
+        request.setAttribute("profilePic", ac.getProfilePic((String)sess.getAttribute("admin")));
+        System.out.println(ac.getProfilePic((String)sess.getAttribute("admin")));
         this.getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 

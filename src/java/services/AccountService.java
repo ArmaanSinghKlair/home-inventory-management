@@ -8,6 +8,10 @@ package services;
 import java.util.List;
 import models.Users;
 import dataaccess.UserDB;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.UUID;
@@ -206,5 +210,26 @@ public class AccountService {
         } catch (Exception ex) {
             Logger.getLogger(AccountService.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public BufferedImage toBufferedImage(Image im)
+    {
+       BufferedImage bi = new BufferedImage(im.getWidth(null),im.getHeight(null),BufferedImage.TYPE_INT_RGB);
+        Graphics bg = bi.getGraphics();
+        bg.drawImage(im, 0, 0, null);
+        bg.dispose();
+        return bi;
+    }
+    
+    public String updateProfilePic(String username, String image){
+        return udb.updateProfilePic(username, image);
+    }
+    
+    public String getProfilePic(String username){
+        return udb.getProfilePic(username);
+    }
+    
+    public String removeProfilePic(String username){
+        return udb.removeProfilePic(username);
     }
 }
