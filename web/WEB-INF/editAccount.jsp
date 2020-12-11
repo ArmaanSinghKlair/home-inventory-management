@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : editAccount
     Created on : Dec 2, 2020, 12:16:26 AM
     Author     : 839645
@@ -86,6 +86,11 @@
                      </label>
                      
                  </form>
+                     
+                     <form action="<c:url value="/edit"/>" method="post">
+                         <input type="hidden" name="action" value="removeProfile"/>
+                         <input type="submit" name="removeProfile" value="Remove Profile" class="red-input"/>
+                     </form>
             </section>
              <c:if test="${errMsgEdit != null}">
                 <section class="errMsg"><c:out value='${errMsgEdit}'></c:out></section>

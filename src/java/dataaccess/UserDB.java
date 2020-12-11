@@ -454,7 +454,7 @@ public class UserDB {
             trans.begin();
             u.setBase64Image(null);
             trans.commit();
-            return "All good";
+            return "Profile Picture removed";
         } finally{
             em.close();
         }

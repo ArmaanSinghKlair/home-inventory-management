@@ -161,6 +161,10 @@ th{
     border-bottom: solid 1px lightgray;
 }
 
+.red-input{
+    background: tomato !important;
+        color: white !important;
+}
 .hamburger-menu{
     color: var(--primary-color);
 }

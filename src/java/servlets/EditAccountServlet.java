@@ -143,8 +143,14 @@ public class EditAccountServlet extends HttpServlet {
                     }                
                     break;
                     
-                case "editProfile":
-                    
+                case "removeProfile":
+                    msg = service.removeProfilePic(oldUsername);
+                    if(!msg.toLowerCase().startsWith("error")){
+                        request.setAttribute("infoMsgEdit", msg);
+                    }    
+                    else{   
+                        request.setAttribute("errMsgEdit", msg.substring(7)); 
+                    }  
                     break;
 
             }
