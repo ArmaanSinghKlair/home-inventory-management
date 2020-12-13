@@ -27,11 +27,6 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = "/WEB-INF/login.jsp";
-        try {
-            System.out.println(utilities.PasswordUtil.hashPassword("password"));
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
         HttpSession sess;
         if( request.getParameter("logout") != null){
             sess = request.getSession();

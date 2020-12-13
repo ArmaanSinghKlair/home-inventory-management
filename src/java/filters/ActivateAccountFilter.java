@@ -43,7 +43,6 @@ public class ActivateAccountFilter implements Filter {
                 } else{
                     ac.activateUser(username);
                     ac.deleteActivateAccountUuid(username);
-                    System.out.println("GOT HERE");
                     ac.sendWelcomeEmail(username,httpRequest.getRequestURL().toString(), filterConfig.getServletContext().getRealPath("/WEB-INF"));
                     httpResponse.sendRedirect("login?activation=1");
                     return;
