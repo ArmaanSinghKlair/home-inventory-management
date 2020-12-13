@@ -202,7 +202,6 @@ public class AccountService {
         HashMap<String, String> tags = new HashMap<>();
         String to = this.getUser(toUsername).getEmail();
         String uuid = UUID.randomUUID().toString();
-        udb.addActivateAccountUuid(toUsername, uuid);        
         String template = path+"/emailTemplates/welcome.html";
         String subject = "Welcome to HOME nVentory";
         try {

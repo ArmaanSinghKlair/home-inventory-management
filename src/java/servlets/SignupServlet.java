@@ -48,7 +48,7 @@ public class SignupServlet extends HttpServlet {
             String emailToEdit = request.getParameter("email") != null ? request.getParameter("email") : "";
             String firstNameToEdit = request.getParameter("firstName") != null ? request.getParameter("firstName") : "";
             String lastNameToEdit = request.getParameter("lastName") != null ? request.getParameter("lastName") : "";    
-            
+            System.out.println("WHY AM I BEIGN CALLED");
             msg = service.addNonActiveUser(usernameToEdit, passwordToEdit, emailToEdit, firstNameToEdit, lastNameToEdit);
                 if(!msg.toLowerCase().startsWith("error")){
                     String status = service.sendActivateAccountMail(usernameToEdit, emailToEdit, request.getRequestURL().toString(), this.getServletContext().getRealPath("/WEB-INF"));

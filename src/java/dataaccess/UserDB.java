@@ -128,7 +128,9 @@ public class UserDB {
         
         try{
            Users user = em.find(Users.class, username);
-           if(user.getIsAdmin())
+           if(user == null){
+               return "Error: No user found";
+           } else if(user.getIsAdmin())
                return "Error: Already an admin";
            
            trans.begin();
@@ -152,8 +154,10 @@ public class UserDB {
         
         try{
            Users user = em.find(Users.class, username);
-           if(!user.getIsAdmin())
-               return "Error: Already aa regular user";
+           if(user == null){
+               return "Error: No user found";
+           } else if(!user.getIsAdmin())
+               return "Error: Already a regular user";
            
            trans.begin();
            user.setIsAdmin(false);
@@ -360,7 +364,7 @@ public class UserDB {
          EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try{
             Users u = em.find(Users.class, username);
-            return u.getActivateaccountUUID().equals(uuid);
+            return u.getActivateaccountUUID() != null ? u.getActivateaccountUUID().equals(uuid) : false;
                
         } finally{
             em.close();
@@ -451,6 +455,8 @@ public class UserDB {
         EntityTransaction trans = em.getTransaction();
         try{
             Users u = em.find(Users.class, username);
+            if(u.getBase64Image() == null)
+                return "Error: No profile picture found!";
             trans.begin();
             u.setBase64Image(null);
             trans.commit();

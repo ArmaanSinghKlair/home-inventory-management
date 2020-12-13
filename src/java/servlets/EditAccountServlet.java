@@ -88,9 +88,12 @@ public class EditAccountServlet extends HttpServlet {
                             ByteArrayOutputStream bos = new ByteArrayOutputStream();
                             ImageIO.write(service.toBufferedImage(m), fileType.substring(6), bos);
                             Encoder e = Base64.getMimeEncoder();
+                            
                             String encodedImage = e.encodeToString(bos.toByteArray());
                             service.updateProfilePic(oldUsername, "data:image/"+fileType.substring(6)+";base64,"+encodedImage);
                             request.setAttribute("infoMsgEdit", "Profile pic updated successfully");
+                        } else{
+                            request.setAttribute("errMsgEdit", "Invalid file or No file selected!");
                         }
                     }
                     
@@ -155,6 +158,8 @@ public class EditAccountServlet extends HttpServlet {
 
             }
            }
+                request.setAttribute("profilePic", service.getProfilePic((curSess.getAttribute("admin") != null) ? (String) curSess.getAttribute("admin") :(String) curSess.getAttribute("regularUser")));
+
                 this.getServletContext().getRequestDispatcher(url).forward(request, response);
 
     }

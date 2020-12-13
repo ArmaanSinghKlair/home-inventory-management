@@ -39,10 +39,11 @@ public class ActivateAccountFilter implements Filter {
             String username  = httpRequest.getParameter("uname");
             if(uuid != null && username != null){
                 if(!ac.checkActivationAccountUuid(username, uuid)){
-                    httpRequest.setAttribute("errMsg", "Invalid link for activation. Please follow instructions in your email to activate");
+                    httpRequest.setAttribute("errMsg", "Invalid link for activation or account already activated. Please follow instructions in your email to activate");
                 } else{
                     ac.activateUser(username);
                     ac.deleteActivateAccountUuid(username);
+                    System.out.println("GOT HERE");
                     ac.sendWelcomeEmail(username,httpRequest.getRequestURL().toString(), filterConfig.getServletContext().getRealPath("/WEB-INF"));
                     httpResponse.sendRedirect("login?activation=1");
                     return;

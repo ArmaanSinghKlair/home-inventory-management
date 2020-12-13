@@ -109,6 +109,7 @@ public class InventoryServlet extends HttpServlet {
                 break;
         }
         sess.setAttribute("items", new InventoryService().getAllItems(username));
+        request.setAttribute("profilePic", new AccountService().getProfilePic(username));
 
         this.getServletContext().getRequestDispatcher(url).forward(request, response);
         

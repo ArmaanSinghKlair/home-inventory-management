@@ -20,7 +20,8 @@
         <div class="error-container">
             <div class="content-container">
                 <h1>Oops! Looks like we couldn't find what you were looking for</h1>
-                <h3><button onclick='location.reload()'>Retry</button></h3>
+                <h3><button onclick='location.reload()'>Retry</button> <button onclick='history.back()'>Back</button></h3>
+
             </div>
         </div>
     </body>

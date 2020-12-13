@@ -39,7 +39,7 @@ p, a, div, ul, li, section, article, input, button{
 
 h1, h2, h3, h4, h5, h6{
     font-family: var(--primary-font);
-    font-size: 4rem;
+    font-size: 3.5rem;
 }
 a{
     text-decoration: none;
