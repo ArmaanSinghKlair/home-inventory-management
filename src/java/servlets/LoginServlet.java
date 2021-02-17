@@ -48,7 +48,6 @@ public class LoginServlet extends HttpServlet {
         } else if(request.getParameter("reset") != null && Integer.parseInt(request.getParameter("reset")) == 1){
             request.setAttribute("infoMsg", "Your password has been reset. You can now login");
         }
-        
         this.getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 

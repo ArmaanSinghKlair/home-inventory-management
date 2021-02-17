@@ -64,6 +64,10 @@
         <servlet-name>ResetServlet</servlet-name>
         <servlet-class>servlets.ResetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>testing</servlet-name>
+        <servlet-class>servlets.testing</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>ResetServlet</servlet-name>
         <url-pattern>/reset</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>testing</servlet-name>
+        <url-pattern>/test</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -112,6 +120,6 @@
     <env-entry>
         <env-entry-name>webmail-password</env-entry-name>
         <env-entry-type>java.lang.String</env-entry-type>
-        <env-entry-value></env-entry-value>
+        <env-entry-value/>
     </env-entry>
 </web-app>

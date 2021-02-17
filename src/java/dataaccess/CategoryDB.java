@@ -11,7 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 import models.Categories;
-import utilities.DBUtil;
+import util.DBUtil;
 import java.lang.Integer;
 /**
  *

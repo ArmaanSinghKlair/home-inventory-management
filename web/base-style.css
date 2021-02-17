@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap');:root{
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap');
+:root{
     --secondary-color: #7289DA;
     --primary-gray: #F2F3F5;
     --secondary-gray: #E3E5E8;
@@ -108,7 +109,6 @@ label[for=profile]:hover{
     }
     .left-content-container{
         flex: 100% !important;
-        margin-bottom
         order:2;
     }
 

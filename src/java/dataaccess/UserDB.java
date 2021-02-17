@@ -9,8 +9,8 @@ import java.util.*;
 import javax.persistence.*;
 import javax.persistence.EntityManagerFactory;
 import models.*;
-import utilities.DBUtil;
-import utilities.PasswordUtil;
+import util.DBUtil;
+import util.PasswordUtil;
 /**
  *
  * @author 839645
